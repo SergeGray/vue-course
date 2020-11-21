@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sample">
+        <div v-timer:1000.5="onTimer">1</div>
+        <div v-timer:1000.5.run="onTimer">2</div>
+        <div v-timer:1000="onTimer">3</div>
+      </div>
+    </div>
+    <script>
+      Vue.directive('timer', {
+        bind(el, options) {
+          let delay = parseInt(options.arg, 10);
+          let times = Infinity;
+          let counter = 0;
+          
+          for (let modifier in options.modifiers) {
+            const numberModifier = parseInt(modifier, 10);
+
+            if (modifier === 'run') {
+              options.value(el);
+            } 
+            else if (!isNaN(numberModifier)) {
+              times = numberModifier;
+            }
+          }
+
+          let interval = setInterval(() => {
+            options.value(el);
+
+            if (++counter === times) {
+              clearInterval(interval);
+            }
+          }, delay);
+        }
+      })
+
+      new Vue({
+        el: '.sample',
+        data: {
+          defaultFontSize: 14
+        },
+        methods: {
+          onTimer(el) {
+            let currentSize =
+              parseInt(el.style.fontSize, 10) || this.defaultFontSize;
+            el.style.fontSize = `${currentSize + 8}px`;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
