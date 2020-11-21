@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html>
   <head>
     <meta charset="UTF-8">
@@ -16,11 +17,14 @@
       }
     </style>
   </head>
+
   <body>
     <div class="container">
       <div class="sample">
-        <form @submit.prevent="formSubmitted = true" v-if="!formSubmitted">
-          <div class="content alert alert-info" @scroll="confirmRead">
+        <form @submit.prevent="formSubmitted = true"
+              v-if="!formSubmitted">
+          <div class="content alert alert-info"
+               @scroll="confirmRead">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
             do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -64,38 +68,51 @@
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.
           </div>
-          <template v-show="!fieldsHidden">
+
+          <div v-show="!fieldsHidden">
             <div class="form-group">
-              <input type="checkbox" v-model="options.agreedToTerms">
-              <label>I agree</label>
+              <input type="checkbox"
+                     id="agreedToTerms"
+                     v-model="agreementOptions.agreedToTerms">
+              <label for="agreedToTerms">I agree</label>
             </div>
+
             <div class="form-group">
-              <input type="checkbox" v-model="options.sendSpam">
-              <label>Send me spam</label>
+              <input type="checkbox"
+                     id="sendSpam"
+                     v-model="agreementOptions.sendSpam">
+              <label for="sendSpam">Send me spam</label>
             </div>
-            <div v-show="options.sendSpam">
+
+            <div v-show="agreementOptions.sendSpam">
               <div class="form-group">
                 <input type="radio"
-                       name="spam"
+                       id="spamPlatformPhone"
                        value="Phone"
-                       v-model="options.spamPlatform">
-                <label>Spam my phone</label>
+                       v-model="agreementOptions.spamPlatform">
+                <label for="spamPlatformPhone">Spam my phone</label>
               </div>
+
               <div class="form-group">
                 <input type="radio"
-                       name="spam"
+                       id="spamPlatformEmail"
                        value="Email"
-                       v-model="options.spamPlatform">
-                <label>Send my email</label>
+                       v-model="agreementOptions.spamPlatform">
+                <label for="spamPlatformEmail">Send my email</label>
               </div>
             </div>
-            <button class="btn btn-success" v-show="options.agreedToTerms">
+
+            <button class="btn btn-success"
+                    v-show="agreementOptions.agreedToTerms">
               Send Data
             </button>
-          </template>
+          </div>
         </form>
-        <table class="table table-bordered" v-if="formSubmitted">
-          <tr v-for="(value, option) in pickedOptions">
+
+        <table class="table table-bordered"
+               v-if="formSubmitted">
+          <tr v-for="(value, option, index) in pickedOptions"
+              :key="index">
             <td>{{ option }}</td>
             <td>{{ value }}</td>
           </tr>
@@ -108,7 +125,8 @@
         data: {
           buttonHidden: true,
           formSubmitted: false,
-          options: {
+          fieldsHidden: true,
+          agreementOptions: {
             agreedToTerms: false,
             sendSpam: false,
             spamPlatform: 'Phone'
@@ -116,23 +134,19 @@
         },
         methods: {
           confirmRead(event) {
-            if (
-              event.target.scrollTop >= (
-                event.target.scrollHeight - event.target.offsetHeight
-              )
-            ) {
+            const { scrollTop, scrollHeight, offsetHeight } = event.target;
+            if (scrollTop >= (scrollHeight - offsetHeight)) {
               this.fieldsHidden = false;
             }
           }
         },
         computed: {
           pickedOptions() {
-            if (this.options.sendSpam) {
-              return this.options
-            } else {
-              let { spamPlatform, ...optionsWithoutPlatform } = this.options
-              return optionsWithoutPlatform
-            }
+            const { spamPlatform, ...optionsWithoutPlatform } =
+              this.agreementOptions;
+            return this.agreementOptions.sendSpam ?
+              this.agreementOptions :
+              optionsWithoutPlatform;
           }
         }
       });
