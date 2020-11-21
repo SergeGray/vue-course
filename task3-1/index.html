@@ -27,10 +27,10 @@
           let times = 0;
           let counter = 0;
           
-          for (modifier in options.modifiers) {
+          for (let modifier in options.modifiers) {
             const numberModifier = parseInt(modifier, 10);
 
-            if (modifier === "run") {
+            if (modifier === 'run') {
               options.value.call(this, el);
             } 
             else if (!isNaN(numberModifier)) {
@@ -54,7 +54,8 @@
         },
         methods: {
           onTimer(el) {
-            let currentSize = parseInt(el.style.fontSize) || defaultFontSize;
+            let currentSize =
+              parseInt(el.style.fontSize, 10) || defaultFontSize;
             el.style.fontSize = `${currentSize + 8}px`;
           }
         }
