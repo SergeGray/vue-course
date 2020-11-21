@@ -23,16 +23,18 @@
 
       Vue.directive('timer', {
         bind(el, options) {
-          let delay = parseInt(options.arg);
+          let delay = parseInt(options.arg, 10);
           let times = 0;
           let counter = 0;
           
           for (modifier in options.modifiers) {
-            if (modifier == "run") {
+            const numberModifier = parseInt(modifier, 10);
+
+            if (modifier === "run") {
               options.value.call(this, el);
             } 
-            else if (!isNaN(+modifier)) {
-              times = parseInt(modifier);
+            else if (!isNaN(numberModifier)) {
+              times = numberModifier;
             }
           }
 
