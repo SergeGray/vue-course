@@ -19,8 +19,6 @@
       </div>
     </div>
     <script>
-      var defaultFontSize = 16;
-
       Vue.directive('timer', {
         bind(el, options) {
           let delay = parseInt(options.arg, 10);
@@ -54,9 +52,8 @@
         },
         methods: {
           onTimer(el) {
-            let currentSize =
-              parseInt(el.style.fontSize, 10) || defaultFontSize;
-            el.style.fontSize = `${currentSize + 8}px`;
+            let fontSize = getComputedStyle(el)['fontSize']
+            el.style.fontSize = `${parseInt(fontSize, 10) + 8}px`;
           }
         }
       });
