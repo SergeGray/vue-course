@@ -22,14 +22,14 @@
       Vue.directive('timer', {
         bind(el, options) {
           let delay = parseInt(options.arg, 10);
-          let times = 0;
+          let times = Infinity;
           let counter = 0;
           
           for (let modifier in options.modifiers) {
             const numberModifier = parseInt(modifier, 10);
 
             if (modifier === 'run') {
-              options.value.call(this, el);
+              options.value(el);
             } 
             else if (!isNaN(numberModifier)) {
               times = numberModifier;
@@ -37,7 +37,7 @@
           }
 
           let interval = setInterval(() => {
-            options.value.call(this, el);
+            options.value(el);
 
             if (++counter === times) {
               clearInterval(interval);
@@ -49,11 +49,13 @@
       new Vue({
         el: '.sample',
         data: {
+          defaultFontSize: 14
         },
         methods: {
           onTimer(el) {
-            let fontSize = getComputedStyle(el)['fontSize']
-            el.style.fontSize = `${parseInt(fontSize, 10) + 8}px`;
+            let currentSize =
+              parseInt(el.style.fontSize, 10) || this.defaultFontSize;
+            el.style.fontSize = `${currentSize + 8}px`;
           }
         }
       });
