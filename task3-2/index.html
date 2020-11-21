@@ -25,7 +25,8 @@
 <body>
   <div class="container">
     <div class="sample">
-      <form @submit.prevent="submitForm" v-if="!submitted">
+      <form @submit.prevent="submitForm"
+            v-if="!submitted">
         <div class="progress">
           <div class="progress-bar"
                role="progressbar"
@@ -36,7 +37,8 @@
         </div>
         <app-form-field v-for="(field, index) in fields"
                         :key="index"
-                        :field="field">
+                        :field="field"
+                        @field-update="validateField(field)">
         </app-form-field>
         
         <button class="btn btn-primary">Send Data</button>
@@ -51,8 +53,6 @@
     </div>
   </div>
   <script>
-    const fieldsTotal = 100;
-
     Vue.component('app-form-field', {
       props: {
         field: Object
@@ -60,24 +60,18 @@
       template: `
         <div class="form-group">
           <label>{{ field.title }}</label>
-          <span v-show="field.activated">
+          <span v-show="'valid' in field">
             <i class="fas"
                :class="field.valid ? 'fa-check' : 'fa-exclamation'"></i>
           </span>
           <input type="text"
                  class="form-control"
                  v-model.lazy="field.value"
-                 @change="updateField(field)">
+                 @change="$emit('field-update')">
         </div>
       `,
       data() {
         return {
-        }
-      },
-      methods: {
-        updateField(field) {
-          field.valid = field.validationPattern.test(field.value);
-          field.activated = true;
         }
       }
     });
@@ -86,6 +80,7 @@
       el: '.sample',
       data: {
         submitted: false,
+        fieldsTotal: 100,
         fields: [
           {
             title: 'Name',
@@ -114,34 +109,30 @@
           },
         ]
       },
-      created() {
-        for (field of this.fields) {
-          this.$set(field, 'valid', field.validationPattern.test(field.value));
-          this.$set(field, 'activated', field.value != '');
-        }
-      },
       methods: {
         submitForm() {
-          if (this.currentProgress == fieldsTotal) {
+          if (this.currentProgress === this.fieldsTotal) {
             this.submitted = true;
           }
+        },
+        validateField(field) {
+          this.$set(field, 'valid', field.validationPattern.test(field.value));
         }
       },
       computed: {
         currentProgress() {
           return this.fields.reduce((total, current) => {
-            if (current.valid && current.activated) {
-              return total + this.fieldProgress;
-            } else {
-              return total;
+            if (current.valid) {
+              total += this.fieldProgress;
             }
+            return total;
           }, 0);
         },
         currentStyle() {
           return `width: ${this.currentProgress}%;`;
         },
         fieldProgress() {
-          return Math.floor(fieldsTotal / this.fields.length)
+          return Math.floor(this.fieldsTotal / this.fields.length)
         }
       }
     });
