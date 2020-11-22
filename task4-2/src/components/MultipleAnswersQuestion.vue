@@ -30,7 +30,7 @@
         answered: false
       };
     },
-    mounted() {
+    created() {
       this.selectedAnswers = this.answers.map(x => false);
     }
   }
