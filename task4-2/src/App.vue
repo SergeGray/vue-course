@@ -9,8 +9,6 @@
 
     <test-results :answeredQuestions="answeredQuestions" v-else>
     </test-results>
-
-    {{ answeredQuestions }}
   </div>
 </template>
 
