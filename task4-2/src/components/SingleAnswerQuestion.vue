@@ -12,6 +12,7 @@
              @input="answered = true">
       <label for="`answer-$(index)`">{{ answer }}</label>
     </div>
+
     <button class="btn btn-primary" :disabled="!answered">
       Send Data
     </button>
@@ -28,7 +29,7 @@
       return {
         selectedAnswer: null,
         answered: false
-      }
+      };
     }
   }
 </script>

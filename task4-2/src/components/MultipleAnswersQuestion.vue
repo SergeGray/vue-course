@@ -11,6 +11,7 @@
              @input="answered = true">
       <label for="`answer-$(index)`">{{ answer }}</label>
     </div>
+
     <button class="btn btn-primary" :disabled="!answered">
       Send Data
     </button>
@@ -27,7 +28,7 @@
       return {
         selectedAnswers: [],
         answered: false
-      }
+      };
     },
     mounted() {
       this.selectedAnswers = this.answers.map(x => false);

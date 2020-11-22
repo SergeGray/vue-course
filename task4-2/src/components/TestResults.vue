@@ -2,6 +2,7 @@
   <div>
     <h2>Итого</h2>
     <hr>
+
     <table class="table table-bordered">
       <tr>
         <th>
@@ -11,6 +12,7 @@
           <strong>Ваш ответ</strong>
         </th>
       </tr>
+
       <tr v-for="question in answeredQuestions">
         <td>
           {{ question.title }}

@@ -6,6 +6,7 @@
                :title="currentQuestion.title"
                @form-submit="submitQuestion">
     </component>
+
     <test-results :answeredQuestions="answeredQuestions" v-else>
     </test-results>
   </div>
@@ -15,7 +16,6 @@
 import MultipleAnswersQuestion from './components/MultipleAnswersQuestion.vue'
 import SingleAnswerQuestion from './components/SingleAnswerQuestion.vue'
 import TestResults from './components/TestResults.vue'
-
 
 export default {
   name: 'app',
@@ -28,7 +28,7 @@ export default {
     return {
       currentQuestionIndex: 0,
       answeredQuestions: []
-    }
+    };
   },
   computed: {
     currentQuestion() {
@@ -77,6 +77,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>
