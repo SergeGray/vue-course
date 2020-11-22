@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="$emit('form-submit', selectedAnswers)">
+  <form @submit.prevent="submitAnswer">
     <h2>
       {{ title }}
     </h2>
@@ -34,6 +34,13 @@
     },
     created() {
       this.selectedAnswers = this.answers.map(x => false);
+    },
+    methods: {
+      submitAnswer() {
+        this.$emit('form-submit', this.selectedAnswers);
+        this.selectedAnswers = this.selectedAnswers.map(x => false);
+        this.answered = false;
+      }
     }
   }
 </script>

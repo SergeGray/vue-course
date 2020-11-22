@@ -9,6 +9,8 @@
 
     <test-results :answeredQuestions="answeredQuestions" v-else>
     </test-results>
+
+    {{ answeredQuestions }}
   </div>
 </template>
 
@@ -70,7 +72,7 @@ export default {
     submitQuestion(answer) {
       this.answeredQuestions.push({
         title: this.currentQuestion.title,
-        answer: answer
+        answer: [...answer]
       });
       this.currentQuestionIndex++;
     }
