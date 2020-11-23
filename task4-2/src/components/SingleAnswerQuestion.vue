@@ -35,9 +35,9 @@
     },
     methods: {
       submitAnswer() {
-        this.$emit('form-submit', this.selectedAnswer)
-        this.selectedAnswer = null,
-        this.answered = false
+        this.$emit('form-submit', this.selectedAnswer);
+        this.selectedAnswer = null;
+        this.answered = false;
       }
     }
   }
