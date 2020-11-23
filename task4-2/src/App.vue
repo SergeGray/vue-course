@@ -69,7 +69,7 @@ export default {
     },
     copyAnswer(answer) {
       if (Array.isArray(answer)) {
-        return [...answer];
+        return Array.from(answer);
       } else {
         return answer;
       }
