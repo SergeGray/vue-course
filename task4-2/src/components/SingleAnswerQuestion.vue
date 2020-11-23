@@ -6,13 +6,13 @@
 
     <div class="form-group"
          v-for="(answer, index) in answers"
-         :key="`answer-${index}`">
+         :key="index">
       <input type="radio"
-             :id="`answer-${index}-radio`"
+             :id="`answer-${index}`"
              :value="index"
              v-model="selectedAnswer"
              @input="answered = true">
-      <label :for="`answer-${index}-radio`">{{ answer }}</label>
+      <label :for="`answer-${index}`">{{ answer }}</label>
     </div>
 
     <button class="btn btn-primary" :disabled="!answered">

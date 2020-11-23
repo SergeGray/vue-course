@@ -67,10 +67,17 @@ export default {
         return 'SingleAnswerQuestion';
       }
     },
+    copyAnswer(answer) {
+      if (Array.isArray(answer)) {
+        return [...answer];
+      } else {
+        return answer;
+      }
+    },
     submitQuestion(answer) {
       this.answeredQuestions.push({
         title: this.currentQuestion.title,
-        answer: [...answer]
+        answer: this.copyAnswer(answer)
       });
       this.currentQuestionIndex++;
     }

@@ -6,12 +6,12 @@
 
     <div class="form-group"
          v-for="(answer, index) in answers"
-         :key="`answer-${index}`">
+         :key="index">
       <input type="checkbox"
-             :id="`answer-${index}-checkbox`"
+             :id="`answer-${index}`"
              v-model="selectedAnswers[index]"
              @input="answered = true">
-      <label :for="`answer-${index}-checkbox`">{{ answer }}</label>
+      <label :for="`answer-${index}`">{{ answer }}</label>
     </div>
 
     <button class="btn btn-primary" :disabled="!answered">
