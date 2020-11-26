@@ -1,23 +1,28 @@
 <template>
   <div id="app" class="container">
     <transition name="fade">
-      <component v-if="currentQuestion"
-                 :is="templateType(currentQuestion)"
-                 :answers="currentQuestion.answers"
-                 :title="currentQuestion.title"
-                 @form-submit="submitQuestion">
+      <component
+        v-if="currentQuestion"
+        :is="templateType(currentQuestion)"
+        :answers="currentQuestion.answers"
+        :title="currentQuestion.title"
+        @form-submit="submitQuestion"
+      >
       </component>
 
-      <test-results :answeredQuestions="answeredQuestions" v-else>
+      <test-results
+       :answeredQuestions="answeredQuestions"
+        v-else
+      >
       </test-results>
     </transition>
   </div>
 </template>
 
 <script>
-import MultipleAnswersQuestion from './components/MultipleAnswersQuestion.vue'
-import SingleAnswerQuestion from './components/SingleAnswerQuestion.vue'
-import TestResults from './components/TestResults.vue'
+import MultipleAnswersQuestion from './components/MultipleAnswersQuestion'
+import SingleAnswerQuestion from './components/SingleAnswerQuestion'
+import TestResults from './components/TestResults'
 
 export default {
   name: 'app',
@@ -92,20 +97,15 @@ export default {
     opacity: 0;
   }
 
-  .fade-enter-active {
+  .fade-enter-active, .fade-leave-active {
     transition: opacity 0.5s; 
   }
 
-  .fade-leave {
-    position: absolute;
-  }
-
   .fade-leave-active {
-    transition: opacity 0.5s;
+    position: absolute;
   }
 
   .fade-leave-to {
     opacity: 0;
-    position: absolute;
   }
 </style>

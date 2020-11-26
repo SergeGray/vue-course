@@ -4,17 +4,24 @@
       {{ title }}
     </h2>
 
-    <div class="form-group"
-         v-for="(answer, index) in answers"
-         :key="index">
-      <input type="checkbox"
-             :id="`answer-${index}`"
-             v-model="selectedAnswers[index]"
-             @input="answered = true">
+    <div
+      class="form-group"
+      v-for="(answer, index) in answers"
+      :key="index"
+    >
+      <input
+        type="checkbox"
+        :id="`answer-${index}`"
+        v-model="selectedAnswers[index]"
+        @change="answered = true"
+      >
       <label :for="`answer-${index}`">{{ answer }}</label>
     </div>
 
-    <button class="btn btn-primary" :disabled="!answered">
+    <button
+      class="btn btn-primary"
+      :disabled="!answered"
+    >
       Send Data
     </button>
   </form>

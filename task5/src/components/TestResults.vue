@@ -13,8 +13,10 @@
         </th>
       </tr>
 
-      <tr v-for="(question, index) in answeredQuestions"
-          :key="index">
+      <tr
+        v-for="(question, index) in answeredQuestions"
+        :key="index"
+      >
         <td>
           {{ question.title }}
         </td>
