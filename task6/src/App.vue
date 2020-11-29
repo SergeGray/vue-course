@@ -33,7 +33,7 @@
         <table class="table table-bordered">
           <tbody>
             <tr
-              v-for="(ашудв, index) in fields"
+              v-for="(field, index) in fields"
               :key="index"
             >
               <td>{{ field.title }}</td>
