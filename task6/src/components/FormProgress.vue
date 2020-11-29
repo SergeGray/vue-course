@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import AppInput from './InputTextValidation'
+import AppInput from './InputTextValidation';
 import { mapGetters } from "vuex";
 
 export default {
@@ -52,7 +52,7 @@ export default {
       return `width: ${this.currentProgress}%;`;
     },
     fieldProgress() {
-      return Math.floor(this.fieldsTotal / this.fields.length)
+      return Math.floor(this.fieldsTotal / this.fields.length);
     },
     completed() {
       return this.currentProgress == this.fieldsTotal;
