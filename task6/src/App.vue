@@ -19,7 +19,7 @@
           </div>
         </div>
         <app-input
-          v-for="(field, index) in fields"
+          v-for="(_, index) in fields"
           :key="index"
           :index="index"
         >
@@ -33,7 +33,7 @@
         <table class="table table-bordered">
           <tbody>
             <tr
-              v-for="(_, index) in fields"
+              v-for="(ашудв, index) in fields"
               :key="index"
             >
               <td>{{ field.title }}</td>
