@@ -21,7 +21,7 @@
       FormProgress,
       TableSubmitted
     },
-    data () {
+    data() {
       return {
         submitted: false
       }

@@ -14,8 +14,7 @@
       v-for="(_, index) in fields"
       :key="index"
       :index="index"
-    >
-    </app-input>
+    ></app-input>
 
     <button
       class="btn btn-primary"

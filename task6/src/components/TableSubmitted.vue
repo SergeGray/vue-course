@@ -4,7 +4,10 @@
     <hr>
     <table class="table table-bordered">
       <tbody>
-        <tr v-for="(field, index) in fields" :key="index">
+        <tr
+          v-for="(field, index) in fields"
+          :key="index"
+        >
           <td>{{ field.title }}</td>
           <td>{{ field.value }}</td>
         </tr>
