@@ -1,6 +1,6 @@
 <template>
   <div class="form-group">
-    <label>{{ title }}</label>
+    <label :for="title">{{ title }}</label>
     <span
       v-show="valid !== null"
       class="fas"
@@ -9,6 +9,7 @@
     <input
       type="text"
       class="form-control"
+      :id="title"
       :value="value"
       @change="onChange"
     >
@@ -37,9 +38,6 @@
       ...mapActions([
         'updateValue'
       ]),
-      idk() {
-        console.log(this.fields[this.index]);
-      },
       onChange(event) {
         this.$store.dispatch('updateValue', {
           index: this.index,
