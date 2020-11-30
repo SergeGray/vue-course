@@ -21,10 +21,10 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters([
-      'fields',
-      'name'
-    ])
+    ...mapGetters({
+      fields: 'fields',
+      name: 'nameFieldValue'
+    })
   }
 }
 </script>
