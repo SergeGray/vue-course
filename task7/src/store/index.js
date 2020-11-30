@@ -14,6 +14,6 @@ export const store = new Vuex.store({
 
   },
   actions: {
-    
+
   }
-})
+});
