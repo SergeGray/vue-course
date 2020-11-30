@@ -54,29 +54,29 @@ export const store = new Vuex.Store({
     validByIndex(state) {
       return (index) => state.fields[index].valid;
     },
-    name(state) {
+    nameFieldValue(state) {
       return state.fields[0].value;
     }
   },
   mutations: {
-    setValue(state, payload) {
+    SET_VALUE(state, payload) {
       let field = state.fields[payload.index];
 
       field.value = payload.value;
     },
-    setValid(state, payload) {
+    SET_VALID(state, payload) {
       let field = state.fields[payload.index];
 
       field.valid = payload.valid;
     }
   },
   actions: {
-    updateValue(context, payload) {
-      const pattern = context.getters.patternByIndex(payload.index);
+    updateValue({ getters, commit }, payload) {
+      const pattern = getters.patternByIndex(payload.index);
       payload.valid = pattern.test(payload.value);
 
-      context.commit('setValue', payload);
-      context.commit('setValid', payload);
+      commit('SET_VALUE', payload);
+      commit('SET_VALID', payload);
     }
   }
 });

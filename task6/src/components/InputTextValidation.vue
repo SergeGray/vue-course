@@ -39,7 +39,7 @@
         'updateValue'
       ]),
       onChange(event) {
-        this.$store.dispatch('updateValue', {
+        this.updateValue({
           index: this.index,
           value: event.target.value
         });

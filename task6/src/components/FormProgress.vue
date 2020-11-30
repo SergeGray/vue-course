@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      fieldsTotal: 100
+      maxProgress: 100
     };
   },
   computed: {
@@ -49,13 +49,15 @@ export default {
       }, 0);
     },
     currentStyle() {
-      return `width: ${this.currentProgress}%;`;
+      return {
+        width: `${this.currentProgress}%`
+      };
     },
     fieldProgress() {
-      return Math.floor(this.fieldsTotal / this.fields.length);
+      return Math.floor(this.maxProgress / this.fields.length);
     },
     completed() {
-      return this.currentProgress == this.fieldsTotal;
+      return this.currentProgress == this.maxProgress;
     }
   },
   methods: {
