@@ -57,7 +57,7 @@ export default {
       return Math.floor(this.maxProgress / this.fields.length);
     },
     completed() {
-      return this.currentProgress == this.maxProgress;
+      return this.currentProgress === this.maxProgress;
     }
   },
   methods: {
