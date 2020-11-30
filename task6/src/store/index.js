@@ -60,20 +60,20 @@ export const store = new Vuex.Store({
   },
   mutations: {
     SET_VALUE(state, payload) {
-      let field = state.fields[payload.index];
+      let field = state.fields[payload.fieldIndex];
 
-      field.value = payload.value;
+      field.value = payload.fieldValue;
     },
     SET_VALID(state, payload) {
-      let field = state.fields[payload.index];
+      let field = state.fields[payload.fieldIndex];
 
-      field.valid = payload.valid;
+      field.valid = payload.fieldValid;
     }
   },
   actions: {
     updateValue({ getters, commit }, payload) {
-      const pattern = getters.patternByIndex(payload.index);
-      payload.valid = pattern.test(payload.value);
+      const pattern = getters.patternByIndex(payload.fieldIndex);
+      payload.fieldValid = pattern.test(payload.fieldValue);
 
       commit('SET_VALUE', payload);
       commit('SET_VALID', payload);

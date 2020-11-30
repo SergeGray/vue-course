@@ -40,8 +40,8 @@
       ]),
       onChange(event) {
         this.updateValue({
-          index: this.index,
-          value: event.target.value
+          fieldIndex: this.index,
+          fieldValue: event.target.value
         });
       }
     }
