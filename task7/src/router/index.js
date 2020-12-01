@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import ProductList from '../views/ProductList';
+import Cart from '../views/Cart';
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     name: 'products',
     path: '/products',
     component: ProductList
+  },
+  {
+    name: 'cart',
+    path: '/cart',
+    component: Cart
   }
 ];
 

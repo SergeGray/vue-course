@@ -9,22 +9,40 @@
       >
         <h3>{{ product.title }}</h3>
         <div>{{ product.price }}</div>
-        <button class="btn btn-primary">Add to cart</button>
-        <button class="btn btn-warning">Remove from cart</button>
+        <button
+          v-show="!cartProduct(product.id)"
+          class="btn btn-primary"
+          @click="AddToCart(product)"
+        >Add to cart</button>
+        <button
+          v-show="cartProduct(product.id)"
+          class="btn btn-warning"
+          @click="RemoveFromCart(product)"
+        >Remove from cart</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
+  import { mapGetters } from 'vuex';
+  import { mapActions } from 'vuex';
 
   export default {
     computed: {
-      ...mapGetters("products", {
-        products: "items",
+      ...mapGetters('products', {
+        products: 'items'
       }),
+      ...mapGetters('cart', {
+        cartProduct: 'productById'
+      })
     },
+    methods: {
+      ...mapActions('cart', {
+        AddToCart: 'addProduct',
+        RemoveFromCart: 'removeProduct'
+      })
+    }
   };
 </script>
 

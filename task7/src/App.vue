@@ -20,7 +20,8 @@
         <div class="row">
           <div class="col col-sm-3 menu">
             <ul class="list-group">
-              <router-link to="/products" />
+              <li><router-link to="/products">Products</router-link></li>
+              <li><router-link to="/cart">Cart</router-link></li> 
             </ul>
           </div>
           <div class="col col-sm-9">

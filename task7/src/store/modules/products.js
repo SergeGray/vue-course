@@ -24,9 +24,7 @@ export default {
       return state.items;
     },
     itemById(state) {
-      return (id) => {
-        state.items.find((item) => item.id === id);
-      };
+      return (id) => state.items.find((item) => item.id === id);
     }
   },
   mutations: {
