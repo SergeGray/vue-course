@@ -3,7 +3,7 @@
     <label>{{ field.title }}</label>
     <span v-show="'valid' in field"
           class="fas"
-          :class="field.valid ? 'fa-check' : 'fa-exclamation'"></i>
+          :class="field.valid ? 'fa-check' : 'fa-exclamation'">
     </span>
     <input type="text"
            class="form-control"
