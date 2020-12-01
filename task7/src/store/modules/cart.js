@@ -68,13 +68,13 @@ export default {
       }
     },
     setItemCount(state, payload) {
-      payload.newCount = parseInt(payload.newCount) || 0;
+      payload.newCount = parseInt(payload.newCount);
 
-      if (payload.newCount > 0) {
-        state.commit('SET_ITEM_COUNT', payload);
-      } else {
-        state.commit('REMOVE_ITEM', payload);
+      if (payload.newCount < 1 || isNaN(payload.newCount)) {
+        payload.newCount = 1;
       }
+
+      state.commit('SET_ITEM_COUNT', payload);
     },
   }
 };
