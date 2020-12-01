@@ -10,12 +10,12 @@
         <h3>{{ product.title }}</h3>
         <div>{{ product.price }}</div>
         <button
-          v-show="!cartProduct(product.id)"
+          v-show="!cartItemById(product.id)"
           class="btn btn-primary"
           @click="AddToCart(product)"
         >Add to cart</button>
         <button
-          v-show="cartProduct(product.id)"
+          v-show="cartItemById(product.id)"
           class="btn btn-warning"
           @click="RemoveFromCart(product)"
         >Remove from cart</button>
@@ -31,16 +31,16 @@
   export default {
     computed: {
       ...mapGetters('products', {
-        products: 'items'
+        products: 'products'
       }),
       ...mapGetters('cart', {
-        cartProduct: 'productById'
+        cartItemById: 'itemById'
       })
     },
     methods: {
       ...mapActions('cart', {
-        AddToCart: 'addProduct',
-        RemoveFromCart: 'removeProduct'
+        AddToCart: 'addItem',
+        RemoveFromCart: 'removeItem'
       })
     }
   };

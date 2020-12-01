@@ -3,11 +3,12 @@
     <h1>Cart</h1>
     <hr />
     <div
-      v-if="products.length === 0"
+      v-if="items.length === 0"
       class="alert alert-warning"
     >
       Your cart is empty
     </div>
+
     <div v-else>
       <table class="table table-bordered table-hover">
         <thead>
@@ -19,38 +20,45 @@
             <th></th>
           </tr>
         </thead>
+
         <tbody>
           <tr 
-            v-for="(product, index) in products"
+            v-for="(item, index) in items"
             :key="index"
           >
-            <td>{{ productData(product.id).title }}</td>
-            <td>{{ productData(product.id).price }}</td>
+            <td>{{ itemData(item.id).title }}</td>
+            <td>{{ itemData(item.id).price }}</td>
             <td>
               <input
                 type="number"
-                :value="productData(product.id).amount"
-                @input="setProductAmount($event, product)"
+                :value="itemData(item.id).amount"
+                @change="setItemAmount($event, item)"
               >
               <button
                 class="btn btn-primary"
-                @click="increaseProductCount(product)"
+                @click="increaseItemCount(item)"
               >+</button>
               <button
                 class="btn btn-warning"
-                @click="decreaseProductCount(product)"
+                @click="decreaseItemCount(item)"
               >-</button>
             </td>
-            <td>{{ productData(product.id).totalPrice }}</td>
+            <td>{{ itemData(item.id).itemTotalPrice }}</td>
             <td>
               <button
                 class="btn btn-danger"
-                @click="removeProduct(product)"
+                @click="removeItem(item)"
               >X</button>
             </td>
           </tr>
+          <tr>
+            <td colspan="3"></td>
+            <td>{{ totalPrice }}</td>
+            <td></td>
+          </tr>
         </tbody>
       </table>
+
       <button class="btn btn-success">Order Now</button>
     </div>
   </div>
@@ -63,38 +71,43 @@
   export default {
     computed: {
       ...mapGetters('cart', {
-        products: 'products',
-        cartProduct: 'productById'
+        items: 'items',
+        cartItemById: 'itemById'
       }),
       ...mapGetters('products', {
-        shopProduct: 'itemById'
+        shopProductById: 'productById'
       }),
-      productData() {
+      itemData() {
         return (id) => {
-          let shopData = this.shopProduct(id);
-          let cartData = this.cartProduct(id);
+          let shopData = this.shopProductById(id);
+          let cartData = this.cartItemById(id);
           return {
             title: shopData.title,
             price: shopData.price,
             amount: cartData.count,
-            totalPrice: shopData.price * cartData.count
+            itemTotalPrice: shopData.price * cartData.count
           }
         }
       },
       empty() {
-        return this.products.length === 0;
+        return this.items.length === 0;
+      },
+      totalPrice() {
+        return this.items.reduce((total, item) => {
+          return total += this.itemData(item.id).itemTotalPrice;
+        }, 0);
       }
     },
     methods: {
       ...mapActions('cart', [
-        'increaseProductCount',
-        'decreaseProductCount',
-        'setProductCount',
-        'removeProduct'
+        'increaseItemCount',
+        'decreaseItemCount',
+        'setItemCount',
+        'removeItem'
       ]),
-      setProductAmount(event, product) {
-        this.setProductCount({
-          id: product.id,
+      setItemAmount(event, item) {
+        this.setItemCount({
+          id: item.id,
           newCount: event.target.value
         });
       }

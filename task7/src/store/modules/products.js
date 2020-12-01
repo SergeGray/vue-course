@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    items: [
+    products: [
       {
         id: 1,
         title: 'Crappy phone',
@@ -20,17 +20,11 @@ export default {
     ]
   },
   getters: {
-    items(state) {
-      return state.items;
+    products(state) {
+      return state.products;
     },
-    itemById(state) {
-      return (id) => state.items.find((item) => item.id === id);
+    productById(state) {
+      return (id) => state.products.find((product) => product.id === id);
     }
-  },
-  mutations: {
-
-  },
-  actions: {
-
   }
 };

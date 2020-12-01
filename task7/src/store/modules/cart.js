@@ -1,71 +1,80 @@
 export default {
   namespaced: true,
   state: {
-    products: []
+    items: []
   },
   getters: {
-    products(state) {
-      return state.products;
+    items(state) {
+      return state.items;
     },
-    productById(state) {
-      return (id) => state.products.find((product) => product.id === id);
+    itemById(state) {
+      return (id) => state.items.find((item) => item.id === id);
+    },
+    totalCount(state) {
+      return state.items.reduce((total, { count }) => total += count, 0);
     }
   },
   mutations: {
-    ADD_PRODUCT(state, payload) {
-      let product = {
+    ADD_ITEM(state, payload) {
+      let item = {
         id: payload.id,
         count: payload.count || 1
       }
 
-      state.products.push(product);
+      state.items.push(item);
     },
-    SET_PRODUCT_COUNT(state, payload) {
-      let product = state.products.find((product) => product.id === payload.id);
+    SET_ITEM_COUNT(state, payload) {
+      let item = state.items.find((item) => item.id === payload.id);
 
-      product.count = payload.newCount;
+      item.count = payload.newCount;
     },
-    REMOVE_PRODUCT(state, payload) {
-      let indexToRemove = state.products.findIndex(
-        (product) => product.id === payload.id
+    REMOVE_ITEM(state, payload) {
+      let indexToRemove = state.items.findIndex(
+        (item) => item.id === payload.id
       )
 
-      state.products.splice(indexToRemove, 1);
+      state.items.splice(indexToRemove, 1);
     },
   },
   actions: {
-    addProduct({ getters, commit }, payload) {
-      let productInCart = getters.productById(payload.id);
+    addItem({ getters, commit }, payload) {
+      let itemInCart = getters.itemById(payload.id);
 
-      if (productInCart === undefined) {
-        commit('ADD_PRODUCT', payload);
+      if (itemInCart === undefined) {
+        commit('ADD_ITEM', payload);
       }
     },
-    removeProduct({ getters, commit }, payload) {
-      let productInCart = getters.productById(payload.id);
+    removeItem({ getters, commit }, payload) {
+      let itemInCart = getters.itemById(payload.id);
 
-      if (productInCart !== undefined) {
-        commit('REMOVE_PRODUCT', payload);
+      if (itemInCart !== undefined) {
+        commit('REMOVE_ITEM', payload);
       }
     },
-    increaseProductCount({ getters, commit }, payload) {
-      let productInCart = getters.productById(payload.id);
+    increaseItemCount({ getters, commit }, payload) {
+      let itemInCart = getters.itemById(payload.id);
 
-      if (productInCart !== undefined) {
-        payload.newCount = productInCart.count + 1;
-        commit('SET_PRODUCT_COUNT', payload);
+      if (itemInCart !== undefined) {
+        payload.newCount = itemInCart.count + 1;
+        commit('SET_ITEM_COUNT', payload);
       }
     },
-    decreaseProductCount({ getters, commit }, payload) {
-      let productInCart = getters.productById(payload.id);
+    decreaseItemCount({ getters, commit }, payload) {
+      let itemInCart = getters.itemById(payload.id);
 
-      if (productInCart !== undefined && productInCart.count > 1) {
-        payload.newCount = productInCart.count - 1;
-        commit('SET_PRODUCT_COUNT', payload);
+      if (itemInCart !== undefined && itemInCart.count > 1) {
+        payload.newCount = itemInCart.count - 1;
+        commit('SET_ITEM_COUNT', payload);
       }
     },
-    setProductCount(state, payload) {
-      state.commit('SET_PRODUCT_COUNT', payload);
+    setItemCount(state, payload) {
+      payload.newCount = parseInt(payload.newCount) || 0;
+
+      if (payload.newCount > 0) {
+        state.commit('SET_ITEM_COUNT', payload);
+      } else {
+        state.commit('REMOVE_ITEM', payload);
+      }
     },
   }
 };

@@ -8,7 +8,11 @@
           </div>
           <div class="col col-sm-3">
             <div class="alert alert-default">
-              <div>In Cart:</div>
+              <div>
+                <router-link to="/cart">
+                  In Cart: {{ cartItemCounter }}
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
@@ -36,8 +40,20 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   export default {
     name: "app",
+    computed: {
+      ...mapGetters('cart', {
+        totalCount: 'totalCount'
+      }),
+      cartItemCounter() {
+        let count = this.totalCount;
+        let prefix = count === 1 ? '' : 's';
+
+        return `${count} Item${prefix}`
+      }
+    }
   };
 </script>
 
