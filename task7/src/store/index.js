@@ -3,17 +3,11 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export const store = new Vuex.store({
-  state: {
+import products from './modules/products';
 
+export const store = new Vuex.Store({
+  modules: {
+    products
   },
-  getters: {
-
-  },
-  mutations: {
-
-  },
-  actions: {
-
-  }
+  strict: process.env.NODE_ENV !== 'production'
 });
