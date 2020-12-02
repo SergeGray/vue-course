@@ -24,7 +24,9 @@ export default {
       return state.products;
     },
     productById(state) {
-      return (id) => state.products.find((product) => product.id === id);
+      return (id) => state.products.find((product) => {
+        return product.id === parseInt(id)
+      });
     }
   }
 };

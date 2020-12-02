@@ -8,7 +8,9 @@ export default {
       return state.items;
     },
     itemById(state) {
-      return (id) => state.items.find((item) => item.id === id);
+      return (id) => state.items.find((item) => {
+        return item.id === parseInt(id)
+      });
     },
     totalCount(state) {
       return state.items.reduce((total, { count }) => total += count, 0);

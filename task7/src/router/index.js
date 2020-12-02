@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import ProductList from '../views/ProductList';
+import Product from '../views/Product';
 import Cart from '../views/Cart';
 import E404 from '../views/E404';
 
@@ -17,6 +18,11 @@ const routes = [
     name: 'products',
     path: '/products',
     component: ProductList
+  },
+  {
+    name: 'product',
+    path: '/products/:id',
+    component: Product
   },
   {
     name: 'cart',

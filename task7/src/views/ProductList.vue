@@ -7,18 +7,13 @@
         v-for="(product, index) in products"
         :key="index"
       >
-        <h3>{{ product.title }}</h3>
+        <router-link
+          tag="h3"
+          :to="`/products/${product.id}`">
+          <a>{{ product.title }}</a>
+        </router-link>
         <div>{{ product.price }}</div>
-        <button
-          v-show="!cartItemById(product.id)"
-          class="btn btn-primary"
-          @click="AddToCart(product)"
-        >Add to cart</button>
-        <button
-          v-show="cartItemById(product.id)"
-          class="btn btn-warning"
-          @click="RemoveFromCart(product)"
-        >Remove from cart</button>
+        <buttons-cart-actions :product="product" />
       </div>
     </div>
   </div>
@@ -26,21 +21,15 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import { mapActions } from 'vuex';
+  import ButtonsCartActions from '../components/ButtonsCartActions.vue';
 
   export default {
+    components: {
+      ButtonsCartActions
+    },
     computed: {
       ...mapGetters('products', {
         products: 'products'
-      }),
-      ...mapGetters('cart', {
-        cartItemById: 'itemById'
-      })
-    },
-    methods: {
-      ...mapActions('cart', {
-        AddToCart: 'addItem',
-        RemoveFromCart: 'removeItem'
       })
     }
   };
