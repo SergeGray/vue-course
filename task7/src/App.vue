@@ -92,7 +92,7 @@
 
   .cross-fade-leave-active {
     position: absolute;
-    width: 100%;
+    width: 96.5%;
   }
 
   .cross-fade-leave-to {
