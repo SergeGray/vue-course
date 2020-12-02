@@ -5,7 +5,7 @@ export default {
       {
         title: 'Name',
         value: '',
-        validationPattern: /^[a-z]{2,30}$/i,
+        validationPattern: /^[a-z\s]{2,30}$/i,
         inputType: 'text',
         valid: null
       },
