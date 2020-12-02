@@ -26,8 +26,9 @@
 </template>
 
 <script>
-  import FieldInput from '../components/InputFieldValidation';
   import { mapGetters } from 'vuex';
+  
+  import FieldInput from '../components/InputFieldValidation';
 
   export default {
     components: {

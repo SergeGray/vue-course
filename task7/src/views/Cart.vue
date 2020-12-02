@@ -23,8 +23,9 @@
 </template>
 
 <script>
-  import CartItemsTable from '../components/CartItemsTable';
   import { mapGetters } from 'vuex';
+  
+  import CartItemsTable from '../components/CartItemsTable';
 
   export default {
     components: {
