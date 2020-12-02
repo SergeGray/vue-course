@@ -8,9 +8,7 @@ export default {
       return state.items;
     },
     itemById(state) {
-      return (id) => state.items.find((item) => {
-        return item.id === parseInt(id);
-      });
+      return (id) => state.items.find((item) => item.id === parseInt(id));
     },
     totalCount(state) {
       return state.items.reduce((total, { count }) => total += count, 0);
@@ -18,12 +16,7 @@ export default {
   },
   mutations: {
     ADD_ITEM(state, payload) {
-      let item = {
-        id: payload.id,
-        count: payload.count || 1
-      }
-
-      state.items.push(item);
+      state.items.push(payload);
     },
     SET_ITEM_COUNT(state, payload) {
       let item = state.items.find((item) => item.id === payload.id);
@@ -31,11 +24,7 @@ export default {
       item.count = payload.newCount;
     },
     REMOVE_ITEM(state, payload) {
-      let indexToRemove = state.items.findIndex((item) => {
-        return item.id === payload.id;
-      });
-
-      state.items.splice(indexToRemove, 1);
+      state.items.splice(payload.index, 1);
     },
   },
   actions: {
@@ -43,14 +32,19 @@ export default {
       let itemInCart = getters.itemById(payload.id);
 
       if (itemInCart === undefined) {
-        commit('ADD_ITEM', payload);
+        commit('ADD_ITEM', {
+          id: payload.id,
+          count: parseInt(payload.count) || 1
+        });
       }
     },
     removeItem({ getters, commit }, payload) {
       let itemInCart = getters.itemById(payload.id);
 
       if (itemInCart !== undefined) {
-        commit('REMOVE_ITEM', payload);
+        commit('REMOVE_ITEM', {
+          index: getters.items.indexOf(itemInCart)
+        });
       }
     },
     increaseItemCount({ getters, commit }, payload) {
@@ -69,14 +63,14 @@ export default {
         commit('SET_ITEM_COUNT', payload);
       }
     },
-    setItemCount(state, payload) {
+    setItemCount({ commit }, payload) {
       payload.newCount = parseInt(payload.newCount);
 
       if (payload.newCount < 1 || isNaN(payload.newCount)) {
         payload.newCount = 1;
       }
 
-      state.commit('SET_ITEM_COUNT', payload);
+      commit('SET_ITEM_COUNT', payload);
     },
   }
 };

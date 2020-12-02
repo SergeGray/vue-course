@@ -1,21 +1,36 @@
 <template>
-  <div>
-    <h1>{{ product.title }}</h1>
-    <router-link :to="{ name: 'products' }">Back to products</router-link>
-    <hr>
-    <div class="alert alert-success">
-      {{ product.price }}
-    </div>
-    <buttons-cart-actions :product="product" />
+
+<div>
+  <h1>{{ product.title }}</h1>
+
+  <router-link :to="{ name: 'products' }">Back to products</router-link>
+
+  <hr>
+
+  <div class="alert alert-success">
+    {{ product.price }}
   </div>
+
+  <div>
+    <button-cart-actions
+      :product="product"
+      button-type="add"
+    />
+    <button-cart-actions
+      :product="product"
+      button-type="remove"
+    />
+  </div>
+</div>
+
 </template>
 
 <script>
-  import ButtonsCartActions from '../components/ButtonsCartActions';
+import ButtonCartActions from '../components/ButtonCartActions';
 
   export default {
     components: {
-      ButtonsCartActions
+      ButtonCartActions
     },
     computed: {
       id() {

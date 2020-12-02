@@ -19,7 +19,7 @@ export default {
       {
         title: 'Email',
         value: '',
-        validationPattern: /^[a-z\d]{1,20}@[a-z\d]{1,20}\.[a-z]{1,6}$/i,
+        validationPattern: /^[a-z\d]{1,20}@[a-z\d]{1,20}\.[a-z]{1,20}$/i,
         inputType: 'email',
         valid: null
       },

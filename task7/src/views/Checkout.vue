@@ -1,28 +1,33 @@
 <template>
-  <div>
-    <form @submit.prevent="submitForm">
-    <div class="progress">
-      <div
-        class="progress-bar"
-        role="progressbar"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        :aria-valuenow="currentProgress"
-        :style="currentStyle"
-      ></div>
-    </div>
-    <field-input
-      v-for="(_, index) in fields"
-      :key="index"
-      :index="index"
-    ></field-input>
 
-    <button
-      class="btn btn-primary"
-      :disabled="!completed"
-    >Send Data</button>
-  </form>
+<div>
+  <form @submit.prevent="submitForm">
+  <div class="progress">
+    <div
+      class="progress-bar"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      :aria-valuenow="currentProgress"
+      :style="currentStyle"
+    />
   </div>
+
+  <field-input
+    v-for="(_, index) in fields"
+    :key="index"
+    :index="index"
+  />
+
+  <button
+    class="btn btn-primary"
+    :disabled="!completed"
+  >
+    Send Data
+  </button>
+  </form>
+</div>
+
 </template>
 
 <script>
@@ -40,12 +45,12 @@
       };
     },
     computed: {
-      ...mapGetters('checkout', {
-        fields: 'fields'
-      }),
-      ...mapGetters('cart', {
-        totalCount: 'totalCount'
-      }),
+      ...mapGetters('checkout', [
+        'fields'
+      ]),
+      ...mapGetters('cart', [
+        'totalCount'
+      ]),
       currentProgress() {
         return this.fields.reduce((total, current) => {
           if (current.valid) {

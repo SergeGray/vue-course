@@ -1,46 +1,53 @@
 <template>
-  <tbody>
-    <tr v-for="(item, index) in items" :key="index">
-      <td>{{ itemData(item.id).title }}</td>
-      <td>{{ itemData(item.id).price }}</td>
-      <td v-if="!checkedOut">
-        <input
-          type="number"
-          :value="itemData(item.id).amount"
-          @change="setItemAmount($event, item)"
-        >
-        <button
-          class="btn btn-primary"
-          @click="increaseItemCount({ id: item.id })"
-        >
-          +
-        </button>
-        <button
-          class="btn btn-warning"
-          @click="decreaseItemCount({ id: item.id })"
-        >
-          -
-        </button>
-      </td>
-      <td v-else>
-        {{ itemData(item.id).amount }}
-      </td>
-      <td>{{ itemData(item.id).itemTotalPrice }}</td>
-      <td v-if="!checkedOut">
-        <button
-          class="btn btn-danger"
-          @click="removeItem(item)"
-        >
-          X
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3"></td>
-      <td>{{ totalPrice }}</td>
-      <td v-if="!checkedOut"></td>
-    </tr>
-  </tbody>
+
+<tbody>
+  <tr v-for="(item, index) in items" :key="index">
+    <td>{{ itemTitle(item.id) }}</td>
+    <td>{{ itemPrice(item.id) }}</td>
+    <td v-if="!checkedOut">
+
+      <input
+        type="number"
+        :value="itemCount(item.id)"
+        @change="setItemAmount($event, item)"
+      >
+
+      <button
+        class="btn btn-primary"
+        @click="increaseItemCount({ id: item.id })"
+      >
+        +
+      </button>
+
+      <button
+        class="btn btn-warning"
+        @click="decreaseItemCount({ id: item.id })"
+      >
+        -
+      </button>
+    </td>
+
+    <td v-else>{{ itemCount(item.id) }}</td>
+
+    <td>{{ itemTotalPrice(item.id) }}</td>
+
+    <td v-if="!checkedOut">
+      <button
+        class="btn btn-danger"
+        @click="removeItem(item)"
+      >
+        X
+      </button>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="3"></td>
+    <td>{{ totalPrice }}</td>
+    <td v-if="!checkedOut"></td>
+  </tr>
+</tbody>
+
 </template>
 
 <script>
@@ -48,7 +55,10 @@
 
   export default {
     props: {
-      checkedOut: Boolean
+      checkedOut: {
+        type: Boolean,
+        default: false
+      }
     },
     computed: {
       ...mapGetters('cart', {
@@ -58,21 +68,21 @@
       ...mapGetters('products', {
         shopProductById: 'productById'
       }),
-      itemData() {
-        return (id) => {
-          let shopData = this.shopProductById(id);
-          let cartData = this.cartItemById(id);
-          return {
-            title: shopData.title,
-            price: shopData.price,
-            amount: cartData.count,
-            itemTotalPrice: shopData.price * cartData.count
-          };
-        }
+      itemTitle() {
+        return (id) => this.shopProductById(id).title;
+      },
+      itemPrice() {
+        return (id) => this.shopProductById(id).price;
+      },
+      itemCount() {
+        return (id) => this.cartItemById(id).count;
+      },
+      itemTotalPrice() {
+        return (id) => this.itemPrice(id) * this.itemCount(id);
       },
       totalPrice() {
         return this.items.reduce((total, item) => {
-          return total += this.itemData(item.id).itemTotalPrice;
+          return total += this.itemTotalPrice(item.id);
         }, 0);
       }
     }, 

@@ -1,19 +1,24 @@
 <template>
-  <div class="form-group">
-    <label :for="title">{{ title }}</label>
-    <span
-      v-show="valid !== null"
-      class="fas"
-      :class="valid ? 'fa-check' : 'fa-exclamation'">
-    </span>
-    <input
-      :type="inputType"
-      class="form-control"
-      :id="title"
-      :value="value"
-      @change="onChange"
-    >
-  </div>
+
+<div class="form-group">
+  <label :for="title">{{ title }}</label>
+
+  <span
+    v-show="valid !== null"
+    class="fas"
+    :class="valid ? 'fa-check' : 'fa-exclamation'"
+  >
+  </span>
+
+  <input
+    :type="inputType"
+    class="form-control"
+    :id="title"
+    :value="value"
+    @change="updateFieldValue"
+  >
+</div>
+
 </template>
 
 <script>
@@ -21,7 +26,10 @@
 
   export default {
     props: {
-      index: Number
+      index: {
+        type: Number,
+        required: true
+      }
     },
     computed: {
       title() {
@@ -38,10 +46,10 @@
       }
     },
     methods: {
-      ...mapActions('checkout', {
-        updateValue: 'updateValue'
-      }),
-      onChange(event) {
+      ...mapActions('checkout', [
+        'updateValue'
+      ]),
+      updateFieldValue(event) {
         this.updateValue({
           fieldIndex: this.index,
           fieldValue: event.target.value

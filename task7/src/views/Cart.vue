@@ -1,25 +1,27 @@
 <template>
-  <div>
-    <h1>Cart</h1>
-    <hr>
-    <div
-      v-if="items.length === 0"
-      class="alert alert-warning"
-    >
-      Your cart is empty
-    </div>
 
-    <div v-else>
-      <cart-items-table :checkedOut="false" />
+<div>
+  <h1>Cart</h1>
+  <hr>
 
-      <button
-        class="btn btn-success"
-        @click="onOrder"
-      >
-        Order Now
-      </button>
-    </div>
+  <div
+    v-if="isEmpty"
+    class="alert alert-warning"
+  >
+    Your cart is empty
   </div>
+
+  <div v-else>
+    <cart-items-table :checkedOut="false" />
+
+    <button
+      class="btn btn-success"
+      @click="onOrder"
+    >
+      Order Now
+    </button>
+  </div>
+</div>
 </template>
 
 <script>
@@ -32,10 +34,10 @@
       CartItemsTable
     },
     computed: {
-      ...mapGetters('cart', {
-        items: 'items'
-      }),
-      empty() {
+      ...mapGetters('cart', [
+        'items'
+      ]),
+      isEmpty() {
         return this.items.length === 0;
       }
     },

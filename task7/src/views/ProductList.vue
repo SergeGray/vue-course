@@ -1,37 +1,49 @@
 <template>
-  <div>
-    <h1>Products</h1>
-    <div class="row">
-      <div
-        class="col col-sm-4"
-        v-for="(product, index) in products"
-        :key="index"
+
+<div>
+  <h1>Products</h1>
+
+  <router-view />
+
+  <div class="row">
+    <div
+      class="col col-sm-4"
+      v-for="(product, index) in products"
+      :key="index"
+    >
+      <router-link
+        tag="h3"
+        :to="`/products/${product.id}`"
       >
-        <router-link
-          tag="h3"
-          :to="`/products/${product.id}`">
-          <a>{{ product.title }}</a>
-        </router-link>
-        <div>{{ product.price }}</div>
-        <buttons-cart-actions :product="product" />
+        <a>{{ product.title }}</a>
+      </router-link>
+
+      <div>{{ product.price }}</div>
+
+      <div>
+        <button-cart-actions
+          :product="product"
+        />
       </div>
     </div>
   </div>
+</div>
+
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
-  
-  import ButtonsCartActions from '../components/ButtonsCartActions';
+
+  import ButtonCartActions from '../components/ButtonCartActions';
 
   export default {
     components: {
-      ButtonsCartActions
+      ButtonCartActions
     },
     computed: {
-      ...mapGetters('products', {
-        products: 'products'
-      })
+      ...mapGetters('products', [
+        'products'
+      ])
     }
   };
 </script>

@@ -1,16 +1,19 @@
 <template>
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Price</th>
-        <th>Amount</th>
-        <th>Total Price</th>
-        <th v-if="!checkedOut"></th>
-      </tr>
-    </thead>
-    <cart-items-body :checkedOut="checkedOut" />
-  </table>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Amount</th>
+      <th>Total Price</th>
+      <th v-if="!checkedOut"></th>
+    </tr>
+  </thead>
+
+  <cart-items-body :checkedOut="checkedOut" />
+</table>
+
 </template>
 
 <script>
@@ -21,7 +24,10 @@
       CartItemsBody
     },
     props: {
-      checkedOut: Boolean
+      checkedOut: {
+        type: Boolean,
+        default: false
+      }
     }
   };
 </script>
