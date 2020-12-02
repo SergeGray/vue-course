@@ -6,6 +6,8 @@ Vue.use(VueRouter);
 import ProductList from '../views/ProductList';
 import Product from '../views/Product';
 import Cart from '../views/Cart';
+import Checkout from '../views/Checkout';
+import PaymentDetails from '../views/PaymentDetails';
 import E404 from '../views/E404';
 
 const routes = [
@@ -28,6 +30,16 @@ const routes = [
     name: 'cart',
     path: '/cart',
     component: Cart
+  },
+  {
+    name: 'checkout',
+    path: '/checkout',
+    component: Checkout
+  },
+  {
+    name: 'payment',
+    path: '/payment',
+    component: PaymentDetails
   },
   {
     name: 'E404',

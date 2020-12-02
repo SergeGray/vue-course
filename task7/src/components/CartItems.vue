@@ -20,10 +20,16 @@
             :value="itemData(item.id).amount"
             @change="setItemAmount($event, item)"
           />
-          <button class="btn btn-primary" @click="increaseItemCount(item)">
+          <button
+            class="btn btn-primary"
+            @click="increaseItemCount({ id: item.id })"
+          >
             +
           </button>
-          <button class="btn btn-warning" @click="decreaseItemCount(item)">
+          <button
+            class="btn btn-warning"
+            @click="decreaseItemCount({ id: item.id })"
+          >
             -
           </button>
         </td>

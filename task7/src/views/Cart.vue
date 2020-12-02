@@ -11,7 +11,12 @@
 
     <cart-items v-else />
 
-    <button class="btn btn-success">Order Now</button>
+    <button
+      class="btn btn-success"
+      @click="onOrder"
+    >
+      Order Now
+    </button>
   </div>
 </template>
 
@@ -30,8 +35,13 @@
       empty() {
         return this.items.length === 0;
       }
+    },
+    methods: {
+      onOrder() {
+        this.$router.push('/checkout');
+      }
     }
-  }
+  };
 </script>
 
 <style scoped>

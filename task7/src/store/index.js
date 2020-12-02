@@ -6,12 +6,14 @@ Vue.use(Vuex);
 import products from './modules/products';
 import cart from './modules/cart';
 import menu from './modules/menu';
+import checkout from './modules/checkout';
 
 export const store = new Vuex.Store({
   modules: {
     products,
     cart,
-    menu
+    menu,
+    checkout
   },
   strict: process.env.NODE_ENV !== 'production'
 });
