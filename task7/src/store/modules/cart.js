@@ -28,18 +28,18 @@ export default {
     },
   },
   actions: {
-    addItem({ getters, commit }, payload) {
-      let itemInCart = getters.itemById(payload.id);
+    addItem({ getters, commit }, product) {
+      let itemInCart = getters.itemById(product.id);
 
       if (itemInCart === undefined) {
         commit('ADD_ITEM', {
-          id: payload.id,
-          count: parseInt(payload.count) || 1
+          id: product.id,
+          count: parseInt(product.count) || 1
         });
       }
     },
-    removeItem({ getters, commit }, payload) {
-      let itemInCart = getters.itemById(payload.id);
+    removeItem({ getters, commit }, product) {
+      let itemInCart = getters.itemById(product.id);
 
       if (itemInCart !== undefined) {
         commit('REMOVE_ITEM', {
@@ -47,30 +47,37 @@ export default {
         });
       }
     },
-    increaseItemCount({ getters, commit }, payload) {
-      let itemInCart = getters.itemById(payload.id);
+    increaseItemCount({ getters, commit }, product) {
+      let itemInCart = getters.itemById(product.id);
 
       if (itemInCart !== undefined) {
-        payload.newCount = itemInCart.count + 1;
-        commit('SET_ITEM_COUNT', payload);
+        commit('SET_ITEM_COUNT', {
+          id: product.id,
+          newCount: itemInCart.count + 1
+        });
       }
     },
-    decreaseItemCount({ getters, commit }, payload) {
-      let itemInCart = getters.itemById(payload.id);
+    decreaseItemCount({ getters, commit }, product) {
+      let itemInCart = getters.itemById(product.id);
 
       if (itemInCart !== undefined && itemInCart.count > 1) {
-        payload.newCount = itemInCart.count - 1;
-        commit('SET_ITEM_COUNT', payload);
+        commit('SET_ITEM_COUNT', {
+          id: product.id,
+          newCount: itemInCart.count - 1
+        });
       }
     },
-    setItemCount({ commit }, payload) {
-      payload.newCount = parseInt(payload.newCount);
+    setItemCount({ commit }, product) {
+      product.newCount = parseInt(product.newCount);
 
-      if (payload.newCount < 1 || isNaN(payload.newCount)) {
-        payload.newCount = 1;
+      if (product.newCount < 1 || isNaN(product.newCount)) {
+        product.newCount = 1;
       }
 
-      commit('SET_ITEM_COUNT', payload);
+      commit('SET_ITEM_COUNT', {
+        id: product.id,
+        newCount: product.newCount
+      });
     },
   }
 };
