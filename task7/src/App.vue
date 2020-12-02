@@ -37,7 +37,7 @@
             </ul>
           </div>
           <div class="col col-sm-9">
-            <transition>
+            <transition name="cross-fade">
               <router-view />
             </transition>
           </div>
@@ -77,7 +77,25 @@
   .list-group-item a {
     text-decoration: none;
   }
+
   .list-group-item.active a {
     color: inherit;
+  }
+
+  .cross-fade-enter {
+    opacity: 0;
+  }
+
+  .cross-fade-enter-active, .cross-fade-leave-active {
+    transition: opacity 0.3s;
+  }
+
+  .cross-fade-leave-active {
+    position: absolute;
+    width: 100%;
+  }
+
+  .cross-fade-leave-to {
+    opacity: 0;
   }
 </style>

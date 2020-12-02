@@ -9,14 +9,16 @@
       Your cart is empty
     </div>
 
-    <cart-items v-else />
+    <div v-else>
+      <cart-items />
 
-    <button
-      class="btn btn-success"
-      @click="onOrder"
-    >
-      Order Now
-    </button>
+      <button
+        class="btn btn-success"
+        @click="onOrder"
+      >
+        Order Now
+      </button>
+    </div>
   </div>
 </template>
 
