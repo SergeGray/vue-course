@@ -17,26 +17,7 @@
     <hr>
     <h3>Ordered Items:</h3>
     <hr>
-    <table class="table table-bordered">     
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Amount</th>
-          <th>Total Price</th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr v-for="(item, index) in items" :key="index">
-          <td>{{ itemTitle(item) }}</td>
-          <td>{{ itemPrice(item) }}</td>
-          <td>{{ item.count }}</td>
-          <td>{{ itemTotalPrice(item) }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <cart-items :checkedOut="true" />
     <hr>
     <h2>Total Price: {{ totalPrice }}</h2>
   </div>
@@ -44,8 +25,12 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import CartItems from '../components/CartItems';
 
   export default {
+    components: {
+      CartItems
+    },
     computed: {
       ...mapGetters('checkout', {
         fields: 'fields',
@@ -55,20 +40,11 @@
         items: 'items'
       }),  
       ...mapGetters('products', {
-        product: 'productById'
+        productById: 'productById'
       }),
-      itemTitle() {
-        return (item) => this.product(item.id).title;
-      },
-      itemPrice() {
-        return (item) => this.product(item.id).price;
-      },
-      itemTotalPrice() {
-        return (item) => this.itemPrice(item) * item.count;
-      },
       totalPrice() {
         return this.items.reduce((total, item) => {
-          return total += this.itemTotalPrice(item);
+          return total += this.productById(item.id).price * item.count;
         }, 0);
       }
     }

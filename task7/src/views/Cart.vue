@@ -10,7 +10,7 @@
     </div>
 
     <div v-else>
-      <cart-items />
+      <cart-items :checkedOut="false" />
 
       <button
         class="btn btn-success"

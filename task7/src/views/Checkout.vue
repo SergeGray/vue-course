@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>Total Cost: {{ totalCount }}</h2>
     <form @submit.prevent="submitForm">
     <div class="progress">
       <div

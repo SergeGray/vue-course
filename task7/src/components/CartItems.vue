@@ -6,7 +6,7 @@
         <th>Price</th>
         <th>Amount</th>
         <th>Total Price</th>
-        <th></th>
+        <th v-if="!checkedOut"></th>
       </tr>
     </thead>
 
@@ -14,7 +14,7 @@
       <tr v-for="(item, index) in items" :key="index">
         <td>{{ itemData(item.id).title }}</td>
         <td>{{ itemData(item.id).price }}</td>
-        <td>
+        <td v-if="!checkedOut">
           <input
             type="number"
             :value="itemData(item.id).amount"
@@ -33,15 +33,23 @@
             -
           </button>
         </td>
+        <td v-else>
+          {{ itemData(item.id).amount }}
+        </td>
         <td>{{ itemData(item.id).itemTotalPrice }}</td>
-        <td>
-          <button class="btn btn-danger" @click="removeItem(item)">X</button>
+        <td v-if="!checkedOut">
+          <button
+            class="btn btn-danger"
+            @click="removeItem(item)"
+          >
+            X
+          </button>
         </td>
       </tr>
       <tr>
         <td colspan="3"></td>
         <td>{{ totalPrice }}</td>
-        <td></td>
+        <td v-if="!checkedOut"></td>
       </tr>
     </tbody>
   </table>
@@ -51,6 +59,9 @@
   import { mapGetters, mapActions } from 'vuex';
 
   export default {
+    props: {
+      checkedOut: Boolean
+    },
     computed: {
       ...mapGetters('cart', {
         items: 'items',
