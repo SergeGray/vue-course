@@ -68,7 +68,7 @@
             price: shopData.price,
             amount: cartData.count,
             itemTotalPrice: shopData.price * cartData.count
-          }
+          };
         }
       },
       totalPrice() {

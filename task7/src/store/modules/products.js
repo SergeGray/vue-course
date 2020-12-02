@@ -25,7 +25,7 @@ export default {
     },
     productById(state) {
       return (id) => state.products.find((product) => {
-        return product.id === parseInt(id)
+        return product.id === parseInt(id);
       });
     }
   }

@@ -2,7 +2,7 @@
   <div>
     <h1>{{ product.title }}</h1>
     <router-link :to="{ name: 'products' }">Back to products</router-link>
-    <hr />
+    <hr>
     <div class="alert alert-success">
       {{ product.price }}
     </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import ButtonsCartActions from '../components/ButtonsCartActions.vue';
+  import ButtonsCartActions from '../components/ButtonsCartActions';
 
   export default {
     components: {
@@ -22,7 +22,6 @@
         return this.$route.params.id;
       },
       product() {
-        console.log()
         return this.$store.getters['products/productById'](this.id);
       },
     },

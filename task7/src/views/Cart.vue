@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Cart</h1>
-    <hr />
+    <hr>
     <div
       v-if="items.length === 0"
       class="alert alert-warning"

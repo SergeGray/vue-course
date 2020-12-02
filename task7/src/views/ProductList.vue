@@ -21,7 +21,7 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import ButtonsCartActions from '../components/ButtonsCartActions.vue';
+  import ButtonsCartActions from '../components/ButtonsCartActions';
 
   export default {
     components: {

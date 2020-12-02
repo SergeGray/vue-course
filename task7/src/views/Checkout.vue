@@ -37,7 +37,7 @@
     data() {
       return {
         maxProgress: 100
-      }
+      };
     },
     computed: {
       ...mapGetters('checkout', {

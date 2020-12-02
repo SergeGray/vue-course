@@ -49,7 +49,7 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  
+
   export default {
     name: "app",
     computed: {
@@ -63,7 +63,7 @@
         let count = this.totalCount;
         let prefix = count === 1 ? '' : 's';
 
-        return `${count} Item${prefix}`
+        return `${count} Item${prefix}`;
       }
     }
   };

@@ -9,7 +9,7 @@ export default {
     },
     itemById(state) {
       return (id) => state.items.find((item) => {
-        return item.id === parseInt(id)
+        return item.id === parseInt(id);
       });
     },
     totalCount(state) {
@@ -31,9 +31,9 @@ export default {
       item.count = payload.newCount;
     },
     REMOVE_ITEM(state, payload) {
-      let indexToRemove = state.items.findIndex(
-        (item) => item.id === payload.id
-      )
+      let indexToRemove = state.items.findIndex((item) => {
+        return item.id === payload.id;
+      });
 
       state.items.splice(indexToRemove, 1);
     },
