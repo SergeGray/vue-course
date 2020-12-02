@@ -10,7 +10,7 @@
     </div>
 
     <div v-else>
-      <cart-items :checkedOut="false" />
+      <cart-items-table :checkedOut="false" />
 
       <button
         class="btn btn-success"
@@ -23,12 +23,12 @@
 </template>
 
 <script>
-  import CartItems from '../components/CartItems';
+  import CartItemsTable from '../components/CartItemsTable';
   import { mapGetters } from 'vuex';
 
   export default {
     components: {
-      CartItems
+      CartItemsTable
     },
     computed: {
       ...mapGetters('cart', {

@@ -17,7 +17,7 @@
     <hr>
     <h3>Ordered Items:</h3>
     <hr>
-    <cart-items :checkedOut="true" />
+    <cart-items-table :checkedOut="true" />
     <hr>
     <h2>Total Price: {{ totalPrice }}</h2>
   </div>
@@ -25,11 +25,11 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import CartItems from '../components/CartItems';
+  import CartItemsTable from '../components/CartItemsTable';
 
   export default {
     components: {
-      CartItems
+      CartItemsTable
     },
     computed: {
       ...mapGetters('checkout', {
