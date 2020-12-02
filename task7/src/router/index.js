@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 import ProductList from '../views/ProductList';
 import Cart from '../views/Cart';
+import E404 from '../views/E404';
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     name: 'cart',
     path: '/cart',
     component: Cart
+  },
+  {
+    name: 'E404',
+    path: '*',
+    component: E404
   }
 ];
 

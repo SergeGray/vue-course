@@ -24,8 +24,16 @@
         <div class="row">
           <div class="col col-sm-3 menu">
             <ul class="list-group">
-              <li><router-link to="/products">Products</router-link></li>
-              <li><router-link to="/cart">Cart</router-link></li> 
+              <router-link
+                v-for="(item, index) in menuList"
+                :key="index"
+                :to="item.url"
+                tag="li"
+                class="list-group-item"
+                active-class="active"
+              >
+                <a>{{ item.title }}</a>
+              </router-link>
             </ul>
           </div>
           <div class="col col-sm-9">
@@ -47,6 +55,9 @@
       ...mapGetters('cart', {
         totalCount: 'totalCount'
       }),
+      ...mapGetters('menu', {
+        menuList: 'items'
+      }),
       cartItemCounter() {
         let count = this.totalCount;
         let prefix = count === 1 ? '' : 's';
@@ -57,5 +68,15 @@
   };
 </script>
 
-<style>
+<style scoped>
+  .list-group-item{
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .list-group-item a {
+    text-decoration: none;
+  }
+  .list-group-item.active a {
+    color: inherit;
+  }
 </style>
