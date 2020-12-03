@@ -3,7 +3,7 @@
 <button
   class="btn"
   :class="buttonClass"
-  @click="callButtonAction()"
+  @click="buttonAction(product)"
 >
   {{ buttonCaption }}
 </button>
@@ -20,44 +20,28 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      buttonClass: '',
-      buttonCaption: '',
-      buttonAction: () => undefined
-    }
-  },
-  created() {
-    this.assignButtonProperties();
-  },
   computed: {
     ...mapGetters('cart', [
       'itemById'
     ]),
     productInCart() {
       return this.itemById(this.product.id) !== undefined;
+    },
+    buttonClass() {
+      return this.productInCart ? 'btn-warning' : 'btn-primary';
+    },
+    buttonCaption() {
+      return this.productInCart ? 'Remove from Cart' : 'Add to Cart';
+    },
+    buttonAction() {
+      return this.productInCart ? this.removeFromCart : this.addToCart;
     }
   },
   methods: {
     ...mapActions('cart', {
       addToCart: 'addItem',
       removeFromCart: 'removeItem',
-    }),
-    callButtonAction() {
-      this.buttonAction(this.product);
-      this.assignButtonProperties();
-    },
-    assignButtonProperties() {
-      if (this.productInCart) {
-        this.buttonClass = 'btn-warning';
-        this.buttonCaption = 'Remove from Cart';
-        this.buttonAction = this.removeFromCart;
-      } else {
-        this.buttonClass = 'btn-primary';
-        this.buttonCaption = 'Add to Cart';
-        this.buttonAction = this.addToCart;
-      }
-    }
+    })
   },
 };
 </script>
