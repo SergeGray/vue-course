@@ -31,32 +31,32 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
-  import CartItemsTable from '../components/CartItemsTable';
+import CartItemsTable from '../components/CartItemsTable';
 
-  export default {
-    components: {
-      CartItemsTable
-    },
-    computed: {
-      ...mapGetters('checkout', {
-        fields: 'fields',
-        name: 'nameFieldValue'
-      }),
-      ...mapGetters('cart', [
-        'items'
-      ]),  
-      ...mapGetters('products', [
-        'productById'
-      ]),
-      totalPrice() {
-        return this.items.reduce((total, item) => {
-          return total += this.productById(item.id).price * item.count;
-        }, 0);
-      }
+export default {
+  components: {
+    CartItemsTable
+  },
+  computed: {
+    ...mapGetters('checkout', {
+      fields: 'fields',
+      name: 'nameFieldValue'
+    }),
+    ...mapGetters('cart', [
+      'items'
+    ]),
+    ...mapGetters('products', [
+      'productById'
+    ]),
+    totalPrice() {
+      return this.items.reduce((total, item) => {
+        return total += this.productById(item.id).price * item.count;
+      }, 0);
     }
-  };
+  }
+};
 </script>
 
 <style scoped>

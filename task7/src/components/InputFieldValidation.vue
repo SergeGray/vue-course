@@ -22,48 +22,49 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
-  export default {
-    props: {
-      index: {
-        type: Number,
-        required: true
-      }
-    },
-    computed: {
-      title() {
-        return this.$store.getters['checkout/titleByIndex'](this.index);
-      },
-      value() {
-        return this.$store.getters['checkout/valueByIndex'](this.index);
-      },
-      valid() {
-        return this.$store.getters['checkout/validByIndex'](this.index);
-      },
-      inputType() {
-        return this.$store.getters['checkout/inputTypeByIndex'](this.index);
-      }
-    },
-    methods: {
-      ...mapActions('checkout', [
-        'updateValue'
-      ]),
-      updateFieldValue(event) {
-        this.updateValue({
-          fieldIndex: this.index,
-          fieldValue: event.target.value
-        });
-      }
+export default {
+  props: {
+    index: {
+      type: Number,
+      required: true
     }
-  };
+  },
+  computed: {
+    title() {
+      return this.$store.getters['checkout/titleByIndex'](this.index);
+    },
+    value() {
+      return this.$store.getters['checkout/valueByIndex'](this.index);
+    },
+    valid() {
+      return this.$store.getters['checkout/validByIndex'](this.index);
+    },
+    inputType() {
+      return this.$store.getters['checkout/inputTypeByIndex'](this.index);
+    }
+  },
+  methods: {
+    ...mapActions('checkout', [
+      'updateValue'
+    ]),
+    updateFieldValue(event) {
+      this.updateValue({
+        fieldIndex: this.index,
+        fieldValue: event.target.value
+      });
+    }
+  }
+};
 </script>
 
 <style scoped>
-  .fa-exclamation {
-    color: red;
-  }
-  .fa-check {
-    color: green;
-  }
+.fa-exclamation {
+  color: red;
+}
+
+.fa-check {
+  color: green;
+}
 </style>

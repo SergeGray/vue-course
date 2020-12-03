@@ -32,20 +32,20 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
-  import ButtonCartActions from '../components/ButtonCartActions';
+import ButtonCartActions from '../components/ButtonCartActions';
 
-  export default {
-    components: {
-      ButtonCartActions
-    },
-    computed: {
-      ...mapGetters('products', [
-        'products'
-      ])
-    }
-  };
+export default {
+  components: {
+    ButtonCartActions
+  },
+  computed: {
+    ...mapGetters('products', [
+      'products'
+    ])
+  }
+};
 </script>
 
 <style scoped>

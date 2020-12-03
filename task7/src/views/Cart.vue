@@ -25,28 +25,28 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
   
-  import CartItemsTable from '../components/CartItemsTable';
+import CartItemsTable from '../components/CartItemsTable';
 
-  export default {
-    components: {
-      CartItemsTable
-    },
-    computed: {
-      ...mapGetters('cart', [
-        'items'
-      ]),
-      isEmpty() {
-        return this.items.length === 0;
-      }
-    },
-    methods: {
-      onOrder() {
-        this.$router.push('/checkout');
-      }
+export default {
+  components: {
+    CartItemsTable
+  },
+  computed: {
+    ...mapGetters('cart', [
+      'items'
+    ]),
+    isEmpty() {
+      return this.items.length === 0;
     }
-  };
+  },
+  methods: {
+    onOrder() {
+      this.$router.push('/checkout');
+    }
+  }
+};
 </script>
 
 <style scoped>

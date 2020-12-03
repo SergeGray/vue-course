@@ -17,19 +17,19 @@
 </template>
 
 <script>
-  import CartItemsBody from './CartItemsBody';
+import CartItemsBody from './CartItemsBody';
 
-  export default {
-    components: {
-      CartItemsBody
-    },
-    props: {
-      checkedOut: {
-        type: Boolean,
-        default: false
-      }
+export default {
+  components: {
+    CartItemsBody
+  },
+  props: {
+    checkedOut: {
+      type: Boolean,
+      default: false
     }
-  };
+  }
+};
 </script>
 
 <style scoped>

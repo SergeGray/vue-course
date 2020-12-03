@@ -51,56 +51,56 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
-  export default {
-    props: {
-      checkedOut: {
-        type: Boolean,
-        default: false
-      }
-    },
-    computed: {
-      ...mapGetters('cart', {
-        items: 'items',
-        cartItemById: 'itemById'
-      }),
-      ...mapGetters('products', {
-        shopProductById: 'productById'
-      }),
-      itemTitle() {
-        return (id) => this.shopProductById(id).title;
-      },
-      itemPrice() {
-        return (id) => this.shopProductById(id).price;
-      },
-      itemCount() {
-        return (id) => this.cartItemById(id).count;
-      },
-      itemTotalPrice() {
-        return (id) => this.itemPrice(id) * this.itemCount(id);
-      },
-      totalPrice() {
-        return this.items.reduce((total, item) => {
-          return total += this.itemTotalPrice(item.id);
-        }, 0);
-      }
-    }, 
-    methods: {
-      ...mapActions('cart', [
-        'increaseItemCount',
-        'decreaseItemCount',
-        'setItemCount',
-        'removeItem'
-      ]),
-      setItemAmount(event, item) {
-        this.setItemCount({
-          id: item.id,
-          newCount: event.target.value
-        });
-      }
+export default {
+  props: {
+    checkedOut: {
+      type: Boolean,
+      default: false
     }
-  };
+  },
+  computed: {
+    ...mapGetters('cart', {
+      items: 'items',
+      cartItemById: 'itemById'
+    }),
+    ...mapGetters('products', {
+      shopProductById: 'productById'
+    }),
+    itemTitle() {
+      return (id) => this.shopProductById(id).title;
+    },
+    itemPrice() {
+      return (id) => this.shopProductById(id).price;
+    },
+    itemCount() {
+      return (id) => this.cartItemById(id).count;
+    },
+    itemTotalPrice() {
+      return (id) => this.itemPrice(id) * this.itemCount(id);
+    },
+    totalPrice() {
+      return this.items.reduce((total, item) => {
+        return total += this.itemTotalPrice(item.id);
+      }, 0);
+    }
+  },
+  methods: {
+    ...mapActions('cart', [
+      'increaseItemCount',
+      'decreaseItemCount',
+      'setItemCount',
+      'removeItem'
+    ]),
+    setItemAmount(event, item) {
+      this.setItemCount({
+        id: item.id,
+        newCount: event.target.value
+      });
+    }
+  }
+};
 </script>
 
 <style scoped>

@@ -28,17 +28,17 @@
 <script>
 import ButtonCartActions from '../components/ButtonCartActions';
 
-  export default {
-    components: {
-      ButtonCartActions
+export default {
+  components: {
+    ButtonCartActions
+  },
+  computed: {
+    id() {
+      return this.$route.params.id;
     },
-    computed: {
-      id() {
-        return this.$route.params.id;
-      },
-      product() {
-        return this.$store.getters['products/productById'](this.id);
-      },
+    product() {
+      return this.$store.getters['products/productById'](this.id);
     },
-  };
+  },
+};
 </script>

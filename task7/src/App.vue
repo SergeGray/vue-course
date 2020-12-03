@@ -60,50 +60,50 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
-  export default {
-    name: "app",
-    computed: {
-      ...mapGetters('cart', [
-        'totalCount'
-      ]),
-      ...mapGetters('menu', {
-        menuList: 'items'
-      }),
-      cartItemCounter() {
-        let count = this.totalCount;
-        let prefix = count === 1 ? '' : 's';
+export default {
+  name: "app",
+  computed: {
+    ...mapGetters('cart', [
+      'totalCount'
+    ]),
+    ...mapGetters('menu', {
+      menuList: 'items'
+    }),
+    cartItemCounter() {
+      let count = this.totalCount;
+      let prefix = count === 1 ? '' : 's';
 
-        return `${count} Item${prefix}`;
-      }
+      return `${count} Item${prefix}`;
     }
-  };
+  }
+};
 </script>
 
 <style scoped>
-  .list-group-item{
-    transition: background 0.3s, color 0.3s;
-  }
+.list-group-item{
+  transition: background 0.3s, color 0.3s;
+}
 
-  .list-group-item a {
-    text-decoration: none;
-  }
+.list-group-item a {
+  text-decoration: none;
+}
 
-  .list-group-item.active a {
-    color: inherit;
-  }
+.list-group-item.active a {
+  color: inherit;
+}
 
-  .cross-fade-enter, .cross-fade-leave-to {
-    opacity: 0;
-  }
+.cross-fade-enter, .cross-fade-leave-to {
+  opacity: 0;
+}
 
-  .cross-fade-enter-active, .cross-fade-leave-active {
-    transition: opacity 0.3s;
-  }
+.cross-fade-enter-active, .cross-fade-leave-active {
+  transition: opacity 0.3s;
+}
 
-  .cross-fade-leave-active {
-    position: absolute;
-    width: 96.5%;
-  }
+.cross-fade-leave-active {
+  position: absolute;
+  width: 96.5%;
+}
 </style>

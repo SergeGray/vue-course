@@ -31,55 +31,55 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
   
-  import FieldInput from '../components/InputFieldValidation';
+import FieldInput from '../components/InputFieldValidation';
 
-  export default {
-    components: {
-      FieldInput
+export default {
+  components: {
+    FieldInput
+  },
+  data() {
+    return {
+      maxProgress: 100
+    };
+  },
+  computed: {
+    ...mapGetters('checkout', [
+      'fields'
+    ]),
+    ...mapGetters('cart', [
+      'totalCount'
+    ]),
+    currentProgress() {
+      return this.fields.reduce((total, current) => {
+        if (current.valid) {
+          total += this.fieldProgress;
+        }
+        return total;
+      }, 0);
     },
-    data() {
+    currentStyle() {
       return {
-        maxProgress: 100
+        width: `${this.currentProgress}%`
       };
     },
-    computed: {
-      ...mapGetters('checkout', [
-        'fields'
-      ]),
-      ...mapGetters('cart', [
-        'totalCount'
-      ]),
-      currentProgress() {
-        return this.fields.reduce((total, current) => {
-          if (current.valid) {
-            total += this.fieldProgress;
-          }
-          return total;
-        }, 0);
-      },
-      currentStyle() {
-        return {
-          width: `${this.currentProgress}%`
-        };
-      },
-      fieldProgress() {
-        return Math.floor(this.maxProgress / this.fields.length);
-      },
-      completed() {
-        let formFilled = this.currentProgress === this.maxProgress;
-        return formFilled && this.totalCount > 0;
-      }
+    fieldProgress() {
+      return Math.floor(this.maxProgress / this.fields.length);
     },
-    methods: {
-      submitForm() {
-        if (this.completed) {
-          this.$router.push('/payment');
-        }
+    completed() {
+      let formFilled = this.currentProgress === this.maxProgress;
+      return formFilled && this.totalCount > 0;
+    }
+  },
+  methods: {
+    submitForm() {
+      if (this.completed) {
+        this.$router.push('/payment');
       }
     }
-  };
+  }
+};
 </script>
 
 <style scoped>
