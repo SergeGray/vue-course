@@ -11,22 +11,50 @@
     </tr>
   </thead>
 
-  <cart-items-body :checkedOut="checkedOut" />
+  <tbody>
+    <cart-item-details
+      v-for="(item, index) in items"
+      :key="index"
+      :checkedOut="checkedOut"
+      :item="item"
+    />
+
+    <tr>
+      <td colspan="3"></td>
+      <td>{{ totalPrice }}</td>
+      <td v-if="!checkedOut"></td>
+    </tr>
+  </tbody>
 </table>
 
 </template>
 
 <script>
-import CartItemsBody from './CartItemsBody';
+import { mapGetters } from 'vuex';
+
+import CartItemDetails from './CartItemDetails';
 
 export default {
   components: {
-    CartItemsBody
+    CartItemDetails
   },
   props: {
     checkedOut: {
       type: Boolean,
       default: false
+    }
+  },
+  computed: {
+    ...mapGetters('cart', [
+      'items'
+    ]),
+    ...mapGetters('products', [
+      'productById'
+    ]),
+    totalPrice() {
+      return this.items.reduce((total, item) => {
+        return total += item.count * this.productById(item.id).price;
+      }, 0);
     }
   }
 };
